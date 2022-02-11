@@ -48,10 +48,10 @@ def genrate_list(n,max,min):
     return lst
 
 
-def draw_screen(game_ins,algo_name):
+def draw_screen(game_ins,algo_name,ascending):
     game_ins.window.fill(game_ins.WHT)
 
-    algo_n = game_ins.FONT.render(f"{algo_name}" ,1,game_ins.RED)
+    algo_n = game_ins.FONT.render(f"{algo_name} - {'Ascending' if ascending else 'Descending'}" ,1,game_ins.RED)
     game_ins.window.blit(algo_n, (100,3))
 
     ptext = game_ins.FONT.render("R - reset | SPACE - start sorting | A - ascending | D - descending",1,game_ins.BLCK)
@@ -89,34 +89,34 @@ def draw_bar(game_ins,color_b ={},clear_bg = 0):
 
 
 
-def bubble_sort(game_ins):
+def bubble_sort(game_ins,ascending):
     lst  = game_ins.lst
 
     for i in range(len(lst) -1):
         for j in range(len(lst) -i -1):
-            if lst[j] > lst[j+1]:
+            if (lst[j] > lst[j+1] and ascending) or (lst[j] < lst[j+1] and not ascending):
                 lst[j],lst[j+1] = lst[j+1],lst[j]
                 draw_bar(game_ins,{j: game_ins.GRN, j+1 : game_ins.RED}, 1)
                 yield True
 
     return lst
 
-def selection_sort(game_ins):
+def selection_sort(game_ins,ascending):
     lst = game_ins.lst
 
     for i in range(len(lst) - 1):
-        min = i
+        indx = i
         for j in range(i+1, len(lst)):
-            if lst[j] < lst[min]:
-                min = j
+            if (lst[j] < lst[indx] and ascending) or (lst[j] > lst[indx] and not ascending):
+                indx = j
 
-        lst[i],lst[min] = lst[min],lst[i]
+        lst[i],lst[indx] = lst[indx],lst[i]
         draw_bar(game_ins,{i: game_ins.GRN, min : game_ins.RED}, 1)
         yield True
         
     return lst
 
-def insertion_sort(game_ins):
+def insertion_sort(game_ins,ascending):
     lst = game_ins.lst
 
     for i in range(1,len(lst)):
@@ -159,7 +159,7 @@ def main():
                 sorting = 0
 
         else:
-            draw_screen(game_ins,algo_name)
+            draw_screen(game_ins,algo_name,ascending)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -173,7 +173,7 @@ def main():
 
                 elif event.key == pygame.K_SPACE and sorting == 0:
                     sorting = 1
-                    algo_gen = sorting_algo(game_ins)
+                    algo_gen = sorting_algo(game_ins,ascending)
 
                 elif event.key == pygame.K_a and sorting == 0:
                     ascending = 1
