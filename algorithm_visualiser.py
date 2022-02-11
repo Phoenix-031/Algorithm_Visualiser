@@ -122,12 +122,12 @@ def insertion_sort(game_ins,ascending):
     for i in range(1,len(lst)):
         min = lst[i]
         j=i-1
-        while j >=0 and min < lst[j]:
+        while (j >=0 and min < lst[j] and ascending) or (j>=0 and min > lst[j] and not ascending):
             lst[j+1] = lst[j]
             lst[j] = min
             j-=1
        
-        draw_bar(game_ins,{i: game_ins.GRN, j : game_ins.RED}, 1)
+        draw_bar(game_ins,{min: game_ins.GRN, j : game_ins.RED}, 1)
         yield True
 
     return lst
