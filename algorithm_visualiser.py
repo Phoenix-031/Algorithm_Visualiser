@@ -21,6 +21,8 @@ class game:
 
     FONT = pygame.font.SysFont('comicsans',20)
     
+    tones = ['noti.wav','noti1.wav','noti2.wav']
+    
     def __init__(self,width,height,lst):
         self.width = width
         self.height = height
@@ -97,6 +99,7 @@ def bubble_sort(game_ins,ascending):
             if (lst[j] > lst[j+1] and ascending) or (lst[j] < lst[j+1] and not ascending):
                 lst[j],lst[j+1] = lst[j+1],lst[j]
                 draw_bar(game_ins,{j: game_ins.GRN, j+1 : game_ins.RED}, 1)
+                pygame.mixer.Sound(game_ins.tones[random.randint(0,2)]).play()
                 yield True
 
     return lst
@@ -112,6 +115,7 @@ def selection_sort(game_ins,ascending):
 
         lst[i],lst[indx] = lst[indx],lst[i]
         draw_bar(game_ins,{i: game_ins.GRN, min : game_ins.RED}, 1)
+        pygame.mixer.Sound(game_ins.tones[random.randint(0,2)]).play()
         yield True
         
     return lst
@@ -128,6 +132,7 @@ def insertion_sort(game_ins,ascending):
             j-=1
        
         draw_bar(game_ins,{min: game_ins.GRN, j : game_ins.RED}, 1)
+        pygame.mixer.Sound(game_ins.tones[random.randint(0,2)]).play()
         yield True
 
     return lst
