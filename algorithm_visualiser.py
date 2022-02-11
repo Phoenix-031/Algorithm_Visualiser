@@ -140,7 +140,7 @@ def insertion_sort(game_ins,ascending):
 
 def main():
     n=100
-    max_val = 400
+    max_val = 500
     min_val = 0
     lst = genrate_list(n,max_val,min_val)
     game_ins = game(1280,700,lst)
@@ -150,13 +150,13 @@ def main():
     ascending = 1
 
     sorting_algo = bubble_sort
-    algo_name = None
+    algo_name = "Bubble sort"
     algo_gen = None
 
     run = 1
 
     while run:
-        clock.tick(50)
+        clock.tick(5)
         if sorting:
             try:
                 next(algo_gen)
