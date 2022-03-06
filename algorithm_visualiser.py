@@ -36,7 +36,7 @@ class game:                                                                     
         self.max_v = max(lst)
         self.min_v = min(lst)
 
-        self.bar_width = int((self.width - self.lr_pad) / len(lst))
+        self.bar_width = int((self.width - self.lr_pad) / len(lst)) + 1
         self.bar_height = int((self.height - self.top_pad)/(self.max_v - self.min_v))
         self.start_x = int(self.lr_pad/2)
 
